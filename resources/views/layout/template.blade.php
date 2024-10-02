@@ -1,6 +1,3 @@
-<div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
-</div>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('/asssests/img/favicon.ico') }}" rel="icon">
+    <link href="{{ asset('/assests/img/favicon.ico') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,6 +29,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assests/css/style.css')}}" rel="stylesheet">
+    @livewireStyles
 </head>
 
 <body>
@@ -51,10 +49,6 @@
         <!-- Content Start -->
         <div class="content">
             @include('layout.navbar')
-
-            @include('layout.card')
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
                     @yield('content')
                 </div>
             </div>
@@ -82,6 +76,7 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('assests/js/main.js') }}"></script>
+    @livewireScripts
 </body>
 
 </html>
