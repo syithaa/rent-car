@@ -46,16 +46,12 @@ class UsersComponent extends Component
             'password.required' => 'Password harus diisi!',
             'role.required' => 'Role harus diisi!'
         ]);
-
-        // Create a new model instance and save it to the database
-        $user = new User(); // Replace with your actual model nama
-        $user->nama = $this->nama;
-        $user->email = $this->email;
-        $user->password = bcrypt($this->password); // Hash the password
-        $user->role = $this->role;
-        $user->save();
-    
-
+        User::create([
+            'nama' => $this->nama,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+            'role' => $this->role
+        ]);
         session()->flash('success', 'Berhasil Simpan Data!!');
         $this->reset();
     }
@@ -82,13 +78,13 @@ class UsersComponent extends Component
         $cari = User::find($this->id);
         if ($this->password == "") {
         $cari->update([
-            'name' => $this->nama,
+            'nama' => $this->nama,
             'email' => $this->email,
             'role' => $this->role
         ]);
     } else {
         $cari->update([
-            'name' => $this->nama,
+            'nama' => $this->nama,
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'role' => $this->role

@@ -15,3 +15,11 @@ Route::get('login/keluar', [App\Http\Controllers\LoginController::class, 'keluar
 Route::get('Users', function() {
    return view('users.index'); 
 })->name('users')->middleware('auth');
+
+Route::get('mobil', function(){
+   return view('mobil.index');
+})->name('mobil')->middleware('auth');
+
+Route::get('transaksi', function(){
+   return view('transaksi.index');
+})->name('transaksi')->middleware('auth');
