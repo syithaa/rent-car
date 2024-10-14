@@ -17,7 +17,7 @@
                               @foreach ($mobil as $data)
                                 <div class="col-md-4">
                                     <div class="card" style="width: 18rem;">
-                                      <img src="{{ asset('storage/mobil/'.$data->foto)}}" style="height: 200px;" class="card-img-top" alt="...">
+                                      <img src="{{ asset('storage/mobil/'.$data->foto)}}" style="height: 200px" class="card-img-top" alt="...">
                                   <div class="card-body">
                                      <h5 class="card-title">{{ $data->merek }}</h5>
                                   </div>
@@ -39,8 +39,5 @@
     </div>
     @if ($addPage)
         @include('transaksi.create')
-    @endif
-    @if ($editPage)
-        @include('mobil.edit')
     @endif
 </div>

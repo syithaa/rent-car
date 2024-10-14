@@ -5,14 +5,14 @@ namespace App\Livewire;
 use App\Models\User;
 use App\Models\Mobil;
 use Livewire\Component;
-use Livewire\WithPagination;
-use Livewire\WithoutUrlPagination;
 use Livewire\WithFileUploads;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class MobilComponent extends Component
 {
     use WithPagination, WithoutUrlPagination, WithFileUploads;
-    protected $pahinationTheme = 'bootstrap';
+    protected $paginationTheme = 'bootstrap';
     public $addPage, $editPage = false;
     public $nopolisi, $merek, $jenis, $kapasitas, $harga, $foto, $id;
     public function render()
@@ -42,8 +42,7 @@ class MobilComponent extends Component
             'foto.required' => 'Foto tidak Boleh Kosong!',
             'foto.image' => 'Foto Dalam Format Image!'
         ]);
-
-        $this->foto->storeAs('public/mobil', $this->foto->hashName());
+        $fillname = $this->foto->store('mobil', 'public');
         Mobil::create([
             'user_id' => auth()->user()->id,
             'nopolisi' => $this->nopolisi,
@@ -56,6 +55,13 @@ class MobilComponent extends Component
         session()->flash('succes', 'Berhasil Simpan Data!!');
         $this->reset();
     }
+    public function destroy ($id)
+    {
+        $data = Mobil::find($id);
+        $data->delete();
+        session()->flash('succes', 'Berhasil Hapus Data!!');
+        $this->reset();
+    }
     public function edit($id)
     {
         $mobil = Mobil::find($id);
@@ -66,38 +72,35 @@ class MobilComponent extends Component
         $this->jenis = $mobil->jenis;
         $this->kapasitas = $mobil->kapasitas;
         $this->harga = $mobil->harga;
+        $this->foto = $mobil->foto;
     }
+    
     public function update()
-    {
-        $mobil = Mobil::find($this->id);
-        if (empty($this->foto)) {
-            $mobil->update([
-                'user_id' => auth()->user()->id,
-                'nopolisi' => $this->nopolisi,
-                'merek' => $this->merek,
-                'jenis' => $this->jenis,
-                'kapasitas' => $this->kapasitas,
-                'harga' => $this->harga
-            ]);
-        } else {
-            $mobil->update([
-                'user_id' => auth()->user()->id,
-                'nopolisi' => $this->nopolisi,
-                'merek' => $this->merek,
-                'jenis' => $this->jenis,
-                'kapasitas' => $this->kapasitas,
-                'harga' => $this->harga,
-                'foto' => $this->foto->hashName()
-            ]);
-        }
-        session()->flash('succes', 'Berhasil Simpan Data!!');
-        $this->reset();
+{
+    $mobil = Mobil::find($this->id);
+
+    // Jika foto baru diunggah
+    if ($this->foto) {
+        // Simpan foto baru
+        $filename = $this->foto->store('mobil', 'public');
+        $mobil->update([
+            'nopolisi' => $this->nopolisi,
+            'merek' => $this->merek,
+            'kapasitas' => $this->kapasitas,
+            'harga' => $this->harga,
+            'foto' => $this->foto->hashName() // Ganti dengan nama file baru
+        ]);
+    } else {
+        // Jika tidak ada foto baru, hanya perbarui atribut lainnya
+        $mobil->update([
+            'nopolisi' => $this->nopolisi,
+            'merek' => $this->merek,
+            'kapasitas' => $this->kapasitas,
+            'harga' => $this->harga,
+        ]);
     }
-    public function destroy($id)
-    {
-        $mobil = Mobil::find($id);
-        $mobil->delete();
-        session()->flash('succes', 'Berhasil Hapus Data!!');
-        $this->reset();
-    }
+
+    session()->flash('succes', 'Berhasil update data !');
+    $this->reset();
+}
 }

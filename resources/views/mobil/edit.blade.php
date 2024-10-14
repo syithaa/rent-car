@@ -40,7 +40,9 @@
                 </div>
                 <div class="mb-3">
                         <label for="foto" class="form-label">Foto</label>
-                            <input type="file" class="form-control" wire:model="foto" id="foto" value="{{( old('foto'))}}">
+                            <input type="file" class="form-control" wire:model="foto" id="foto">
+                            <img src="{{ asset('storage/mobil/'.$data->foto)}}" width="100px" alt="{{$data->merek}}">
+                            value="{{( old('foto'))}}">
                             @error('foto')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror

@@ -7,7 +7,7 @@
                                    {{ session('success') }}
                                </div>
                            @endif
-                            <h6 class="mb-4">Mobil</h6>
+                            <h6 class="mb-4">Data Mobil</h6>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -31,9 +31,9 @@
                                             <td>{{ $data->merek }}</td>
                                             <td>{{ $data->jenis }}</td>
                                             <td>{{ $data->kapasitas }}</td>
-                                            <td>{{ $data->harga }}</td>
+                                            <td>rp.{{ $data->harga }}</td>
                                             <td>
-                                               <img src="{{ asset('/storage/uploads/mobil/' . $data->foto) }}"  style="width: 150px;" alt="foto">
+                                               <img src="{{ asset('/storage/mobil/'.$data->foto) }}"  style="width: 150px" alt="{{ $data->merek }}">
                                             </td>
                                             <td>
                                               <button class="btn btn-info" wire:click="edit({{ $data->id }})">Edit</button>
@@ -48,7 +48,7 @@
                                 </tbody>
                             </table>
                             {{ $mobil->links() }}
-                            <button wire:click="create({{ $data->mobil_id }})" class="btn btn-primary">Tambah</button>
+                            <button wire:click="create" class="btn btn-primary">Tambah</button>
                         </div>
                     </div>
     </div>

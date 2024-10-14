@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 class TransaksiComponent extends Component
 {
     use WithPagination, WithoutUrlPagination;
-    public $addPage, $editPage = false;
+    public $addPage, $lihatpage = false;
     public $nama, $ponsel, $alamat, $lama, $tgl_pesan, $tgl_kembali, $mobil_id, $harga, $total;
     public function render()
     {
@@ -48,8 +48,10 @@ class TransaksiComponent extends Component
             'tgl_pesan.required' => 'Tanggal Pesan Tidak Boleh Kosong!',
             'tgl_kembali.required' => 'Tanggal Kembali Tidak Boleh Kosong!'
         ]);
-        $cari = Transaksi::where('mobil_id', $this->mobil_id)->where('status', '<>', 'PROSES')->get()->where('tgl_pesan', $this->tgl_pesan)->where('tgl_kembali', $this->tgl_kembali);
-        if ($cari) {
+        $cari = Transaksi::where('mobil_id', $this->mobil_id)
+        ->where('tgl_pesan', $this->tgl_pesan)
+        ->where('tgl_kembali', $this->tgl_kembali)->where('status', '!-', 'PROSES')->count();
+        if ($cari == 1) {
             session()->flash('error', 'Mobil Sudah Ada Yang Memesan!');
         } else {
             Transaksi::create([
@@ -66,6 +68,12 @@ class TransaksiComponent extends Component
             ]);
             session()->flash('succes', 'Berhasil Simpan Data!!'); 
         }
+        $this->dispatch('lihat-transaksi');
         $this->reset();
+    }
+    public function lihat()
+    {
+        $this->dataTransaksi['transaksi'] = Transaksi::paginate(10);
+        $this->lihatpage = true;
     }
 }

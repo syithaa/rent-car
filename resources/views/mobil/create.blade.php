@@ -6,14 +6,14 @@
                 <form>
                     <div class="mb-3">
                         <label for="nopolisi" class="form-label">No Polisi</label>
-                            <input type="text" wire:model="nopolisi" id="nopolisi" value="{{( old('nopolisi'))}}" class="form-control @error('nopolisi') is-invalid @enderror" />
+                            <input type="text" wire:model="nopolisi" id="nopolisi" class="form-control @error('nopolisi') is-invalid @enderror" />
                             @error('nopolisi')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                     </div>
                     <div class="mb-3">
                         <label for="merek" class="form-label">Merek</label>
-                            <input type="text" class="form-control" wire:model="merek" id="merek" value="{{( old('merek'))}}">
+                            <input type="text" class="form-control" wire:model="merek" id="merek">
                             @error('merek')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
@@ -32,21 +32,21 @@
                     </div>
                     <div class="mb-3">
                         <label for="kapasitas" class="form-label">Kapasitas</label>
-                            <input type="text" class="form-control" wire:model="kapasitas" id="kapasitas" value="{{( old('kapasitas'))}}">
+                            <input type="text" class="form-control" wire:model="kapasitas" id="kapasitas">
                             @error('kapasitas')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                     </div>
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga</label>
-                            <input type="text" class="form-control" wire:model="harga" id="harga" value="{{( old('harga'))}}">
+                            <input type="text" class="form-control" wire:model="harga" id="harga">
                             @error('harga')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                     </div>
                     <div class="mb-3">
                         <label for="foto" class="form-label">Foto Mobil</label>
-                            <input type="file" class="form-control" wire:model="foto" id="foto" value="{{( old('foto'))}}">
+                            <input type="file" class="form-control" wire:model="foto" id="foto">
                             @error('foto')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
