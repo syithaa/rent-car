@@ -23,7 +23,7 @@
                                   </div>
                                  <ul class="list-group list-group-flush">
                                   <li class="list-group-item">No Polisi : {{ $data->nopolisi }}</li>
-                                  <li class="list-group-item">Harga : {{ $data->harga }}</li>
+                                  <li class="list-group-item">Harga : @rupiah($data->harga)</li>
                                   <li class="list-group-item">Kapasitas : {{ $data->kapasitas }}</li>
                                  </ul>
                                 <div class="card-body">

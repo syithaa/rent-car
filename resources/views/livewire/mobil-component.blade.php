@@ -31,7 +31,7 @@
                                             <td>{{ $data->merek }}</td>
                                             <td>{{ $data->jenis }}</td>
                                             <td>{{ $data->kapasitas }}</td>
-                                            <td>rp.{{ $data->harga }}</td>
+                                            <td>@rupiah($data->harga)</td>
                                             <td>
                                                <img src="{{ asset('/storage/mobil/'.$data->foto) }}"  style="width: 150px" alt="{{ $data->merek }}">
                                             </td>

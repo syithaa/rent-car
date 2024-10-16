@@ -23,3 +23,8 @@ Route::get('mobil', function(){
 Route::get('transaksi', function(){
    return view('transaksi.index');
 })->name('transaksi')->middleware('auth');
+
+Route::get('laporan', function(){
+   return view('laporan.index');
+})->name('laporan')->middleware('auth');
+
