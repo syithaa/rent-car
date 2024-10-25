@@ -46,7 +46,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="foto" class="form-label">Foto Mobil</label>
-                            <input type="file" class="form-control" wire:model="foto" id="foto">
+                            <input type="file" class="form-control" accept="image/*" wire:model="foto" id="foto">
                             @error('foto')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror

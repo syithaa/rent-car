@@ -2,7 +2,9 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
             <div class="bg-secondary rounded h-100 p-4">
-                <form>
+                <form method="POST" enctype="multipart/form-data"> 
+                @csrf
+                @method('PUT')
                 <div class="mb-3">
                     <label for="nopolisi" class="form-label">Nopolisi</label>
                         <input type="text" class="form-control" wire:model="nopolisi" id="nopolisi" value="{{( old('nopolisi'))}}">
@@ -42,7 +44,7 @@
                         <label for="foto" class="form-label">Foto</label>
                             <input type="file" class="form-control" wire:model="foto" id="foto">
                             <img src="{{ asset('storage/mobil/'.$data->foto)}}" width="100px" alt="{{$data->merek}}">
-                            value="{{( old('foto'))}}">
+                
                             @error('foto')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror

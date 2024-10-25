@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\User;
 use App\Models\Mobil;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithoutUrlPagination;
@@ -74,33 +75,40 @@ class MobilComponent extends Component
         $this->harga = $mobil->harga;
         $this->foto = $mobil->foto;
     }
-    
-    public function update()
-{
-    $mobil = Mobil::find($this->id);
 
-    // Jika foto baru diunggah
-    if ($this->foto) {
-        // Simpan foto baru
-        $filename = $this->foto->store('mobil', 'public');
-        $mobil->update([
-            'nopolisi' => $this->nopolisi,
-            'merek' => $this->merek,
-            'kapasitas' => $this->kapasitas,
-            'harga' => $this->harga,
-            'foto' => $this->foto->hashName() // Ganti dengan nama file baru
+    public function update()
+    {
+        $mobil = mobil::find($this->id);
+
+        $this->validate([
+            'nopolisi' => 'required',
+            'merek' => 'required',
+            'jenis' => 'required',
+            'kapasitas' => 'required',
+            'harga' => 'required',
+            'foto' => 'max:2048',
         ]);
-    } else {
-        // Jika tidak ada foto baru, hanya perbarui atribut lainnya
-        $mobil->update([
-            'nopolisi' => $this->nopolisi,
-            'merek' => $this->merek,
-            'kapasitas' => $this->kapasitas,
-            'harga' => $this->harga,
-        ]);
-    }
+
+        if ($this->foto instanceof \Illuminate\Http\UploadedFile) {
+            $fillname = $this->foto->store('camera', 'public');
+            $mobil->update([
+                'nopolisi' => $this->nopolisi,
+                'merek' => $this->merek,
+                'kapasitas' => $this->kapasitas,
+                'harga' => $this->harga,
+                'foto' => $this->foto->hashName()
+            ]);
+        } else {
+            $mobil->update([
+                'nopolisi' => $this->nopolisi,
+                'merek' => $this->merek,
+                'kapasitas' => $this->kapasitas,
+                'harga' => $this->harga,
+            ]);
+        }
+    
 
     session()->flash('succes', 'Berhasil update data !');
     $this->reset();
-}
+    }
 }
